@@ -4,7 +4,11 @@ ehr-to-rd is an algorithm of two files written in Python 3, `technician.py` and 
 # How do I use this?
 If you do not already have Python 3 installed on your device, you will need to use that first. Additionally, you will need `.txt` files, one for each participant's full note, copy-pasted from MiChart. Additionally, you will need some time, as much manual editing still needs to be done even after the output `.xlsx` files are produced.
 
-Read the following instructions, then place the `.txt` files into a directory named `files`, then run these two `.py` files from the directory that `files` is in.
+You can download the algorithm by clicking the green **CODE ▼** button, then extracting into a folder of your choosing.
+
+Within that folder, produce a directory named `files`. This is where you will place the `.txt` files.
+
+Then, read the following instructions, and run `technician.py` and `screening.py`. You may need to install some dependencies, which are listed and commented at the start of the `.py` files.
 
 ### Instructions for Technician Eye Exam
 
