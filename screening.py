@@ -1,9 +1,8 @@
-#!pip3 install python-dateutil
-#!pip3 install pandas
-#!pip3 install datetime
-#!pip3 install openpyxl
+#!pip install python-dateutil
+#!pip install pandas
+#!pip install datetime
+#!pip install openpyxl
 # When you install openpyxl, if you are on MacOS, you can decline the prompt to install Command Line Tools
-
 
 import pandas as pd
 import numpy as np
@@ -35,7 +34,7 @@ file_name_list = sorted(glob.glob("*.txt")) # import sorted filenames into list 
 
 strings = ['Start time' , 'Was presenting visual acuity worse than 20/40 in either eye (presented with visual impairment)?' , 'Did the patient have refractive error?', 'I agree with the measured manifest refraction and recommend prescribing it.', 'Were external photos taken?', 'External photos missing?', 'Were external photos of sufficient quality for interpretation?', 'Were external photos normal?', 'Were all fundus photos taken?', 'Fundus photos missing?', 'Were fundus photos of sufficient quality for interpretation?', 'Vertical cup to disc ratio OD:', 'Vertical cup to disc ratio OS:', 'Were all Optical Coherence Tomography (OCT) photos taken?', 'OCT photos missing?', 'Were OCT images of sufficient quality for interpretation?', 'OD: overall thickness', 'OD checklist', 'OS: overall thickness', 'OS checklist', 'Any signs of glaucoma?', 'Were there any abnormalities on the fundus exam?', 'Follow-up with an ophthalmologist?', 'Assessment and Plan', 'Stop time', 'Letter sent to', 'Progress Notes']
 
-cols = ['participantID', 'extnlpdat', 'extnlpsrttm', 'extnlpname', 'extnlpnametx', 'visimpairmnt', 'visimpairmnteye', 'refctverror', 'srdescrip', 'visimpairmnteye_2', 'refractyperod___1', 'refractyperod___2', 'refractyperod___3', 'refractyperod___4', 'refractyperod___5', 'refractyperod___6', 'refractyperod___7', 'refractyperod___99', 'refractfurod___1', 'refractfurod___2', 'refractfurod___3', 'refractfurod___99', 'refractypelos___1', 'refractypelos___2', 'refractypelos___3', 'refractypelos___4', 'refractypelos___5', 'refractypelos___6', 'refractypelos___7', 'refractypelos___99', 'refractfulos___1', 'refractfulos___2', 'refractfulos___3', 'refractfulos___99', 'refractrecpresc', 'extnlp', 'extnlpmiss', 'rodextnlpqlty', 'rodextnlpqltytx', 'losextnlpqlty', 'losextnlpqltytx', 'extnlpnorm', 'extnlpabnrmloc___1', 'extnlpabnrmloc___2',  'extnlpabnrmloc___3',  'extnlpabnrmloc___4',  'extnlpabnrmloc___88',  'extnlpabnrmloctx',  'lensabnrm___1',  'lensabnrm___2',  'lensabnrm___88',  'intraocirlneye',  'intralentcom',  'cataracteye',  'cataract',  'cataractcom',  'lensabnrmtx',  'lensabnrmotheye',  'lensabnrmothtx',  'cornabnrm___1',  'cornabnrm___2',  'cornabnrm___3',  'cornabnrm___4',  'cornabnrm___88',  'dryeye',  'dryeyeartears',  'dryeyetx',  'pterygiumeye',  'pterygiumrod',  'pterygiumlos',  'pterygiumtx',  'cornopactyeye',  'cornopactytx',  'cornulcereye',  'cornulcertx',  'cornabnrmtx',  'cornabnrmotheye',  'irisabnrm___1',  'irisabnrm___88',  'irislesioneye',  'irislesiontx',  'irisabnrmtx',  'irisabnrmotheye',  'irisabnrmothtx',  'extnabnrm___1',  'extnabnrm___2',  'extnabnrm___88',  'lidlesioneye',  'lidlesionrod',  'lidlesionlos',  'lidlesiontx',  'ptosisobviseye',  'ptosisobvistx',  'extnabnrmtx',  'extnabnrmotheye',  'extnabnrmothtx',  'fundusp', 'funduspmiss',  'rodfunduspqlty', 'rodfunduspqltytx',  'losfunduspqlty',  'losfunduspqltytx',  'ctdrrod', 'ctdrlos', 'octp', 'octpmiss',  'rodoctpqlty', 'rodoctpqltytx',  'losoctpqlty',  'losoctpqltytx',  'rodthickns', 'rodsupr', 'rodinferior', 'rodnasal', 'rodtemprl', 'losthickns', 'lossupr', 'losinferior', 'losnasal', 'lostemprl', 'glaucoma', 'glaucstrod',  'glaucstlos',  'srdescrip2',  'glaucsignrod___1',  'glaucsignrod___2',  'glaucsignrod___3',  'glaucsignrod___4',  'glaucsignrod___5',  'glaucsignrod___6',  'glaucsignrod___7',  'glaucsignrod___8',  'glaucsignrod___88',  'glaucsignrodtx',  'glaucsignlos___1',  'glaucsignlos___2',  'glaucsignlos___3',  'glaucsignlos___4',  'glaucsignlos___5',  'glaucsignlos___6',  'glaucsignlos___7',  'glaucsignlos___8',  'glaucsignlos___88',  'glaucsignlostx',  'fundusabnrm', 'fundusreslts___1',  'fundusreslts___2',  'fundusreslts___88',  'dretingraderod',  'rodmacedema',  'dretingradelos',  'losmacedema',  'amd',  'amdtyperod',  'amdtypelos',  'addretinadiag___1',  'addretinadiag___2',  'addretinadiag___3',  'addretinadiag___4',  'addretinadiag___5',  'addretinadiag___6',  'addretinadiag___88',  'addretinadiag___99',  'eprenlmemeye',  'hyprtnsvretineye',  'hollnhrsplaqeye',  'vasclroccleye',  'chrodlnevseye',  'chrodlnevsrod',  'chrodlnevslos',  'melanomaeye',  'retinatx',  'retinatxeye',  'nerveabnrm',  'nervereslts___1',  'nervereslts___2',  'nervereslts___3',  'nervereslts___4',  'nervereslts___88',  'optcswelleye',  'optcpalloreye',  'optcdrusneye',  'optcapdeye',  'nerveabnrmtx',  'nerveabnrmtxeye',  'fuophthalmgst',  'fucomopthal',  'fucomopthalhr',  'recmndcom', 'spcserviceyn',  'spcservice___1',  'spcservice___2',  'spcservice___3',  'spcservice___4',  'spcservice___5',  'spcservice___6',  'spcservice___7',  'spcservice___8',  'spcservice___88',  'spcservicetx',  'extnlpstptm']
+cols = ['record_ID', 'extnlpdat', 'extnlpsrttm', 'extnlpname', 'extnlpnametx', 'visimpairmnt', 'visimpairmnteye', 'refctverror', 'srdescrip', 'visimpairmnteye_2', 'refractyperod___1', 'refractyperod___2', 'refractyperod___3', 'refractyperod___4', 'refractyperod___5', 'refractyperod___6', 'refractyperod___7', 'refractyperod___99', 'refractfurod___1', 'refractfurod___2', 'refractfurod___3', 'refractfurod___99', 'refractypelos___1', 'refractypelos___2', 'refractypelos___3', 'refractypelos___4', 'refractypelos___5', 'refractypelos___6', 'refractypelos___7', 'refractypelos___99', 'refractfulos___1', 'refractfulos___2', 'refractfulos___3', 'refractfulos___99', 'refractrecpresc', 'extnlp', 'extnlpmiss', 'rodextnlpqlty', 'rodextnlpqltytx', 'losextnlpqlty', 'losextnlpqltytx', 'extnlpnorm', 'extnlpabnrmloc___1', 'extnlpabnrmloc___2',  'extnlpabnrmloc___3',  'extnlpabnrmloc___4',  'extnlpabnrmloc___88',  'extnlpabnrmloctx',  'lensabnrm___1',  'lensabnrm___2',  'lensabnrm___88',  'intraocirlneye',  'intralentcom',  'cataracteye',  'cataract',  'cataractcom',  'lensabnrmtx',  'lensabnrmotheye',  'lensabnrmothtx',  'cornabnrm___1',  'cornabnrm___2',  'cornabnrm___3',  'cornabnrm___4',  'cornabnrm___88',  'dryeye',  'dryeyeartears',  'dryeyetx',  'pterygiumeye',  'pterygiumrod',  'pterygiumlos',  'pterygiumtx',  'cornopactyeye',  'cornopactytx',  'cornulcereye',  'cornulcertx',  'cornabnrmtx',  'cornabnrmotheye',  'irisabnrm___1',  'irisabnrm___88',  'irislesioneye',  'irislesiontx',  'irisabnrmtx',  'irisabnrmotheye',  'irisabnrmothtx',  'extnabnrm___1',  'extnabnrm___2',  'extnabnrm___88',  'lidlesioneye',  'lidlesionrod',  'lidlesionlos',  'lidlesiontx',  'ptosisobviseye',  'ptosisobvistx',  'extnabnrmtx',  'extnabnrmotheye',  'extnabnrmothtx',  'fundusp', 'funduspmiss',  'rodfunduspqlty', 'rodfunduspqltytx',  'losfunduspqlty',  'losfunduspqltytx',  'ctdrrod', 'ctdrlos', 'octp', 'octpmiss',  'rodoctpqlty', 'rodoctpqltytx',  'losoctpqlty',  'losoctpqltytx',  'rodthickns', 'rodsupr', 'rodinferior', 'rodnasal', 'rodtemprl', 'losthickns', 'lossupr', 'losinferior', 'losnasal', 'lostemprl', 'glaucoma', 'glaucstrod',  'glaucstlos',  'srdescrip2',  'glaucsignrod___1',  'glaucsignrod___2',  'glaucsignrod___3',  'glaucsignrod___4',  'glaucsignrod___5',  'glaucsignrod___6',  'glaucsignrod___7',  'glaucsignrod___8',  'glaucsignrod___88',  'glaucsignrodtx',  'glaucsignlos___1',  'glaucsignlos___2',  'glaucsignlos___3',  'glaucsignlos___4',  'glaucsignlos___5',  'glaucsignlos___6',  'glaucsignlos___7',  'glaucsignlos___8',  'glaucsignlos___88',  'glaucsignlostx',  'fundusabnrm', 'fundusreslts___1',  'fundusreslts___2',  'fundusreslts___88',  'dretingraderod',  'rodmacedema',  'dretingradelos',  'losmacedema',  'amd',  'amdtyperod',  'amdtypelos',  'addretinadiag___1',  'addretinadiag___2',  'addretinadiag___3',  'addretinadiag___4',  'addretinadiag___5',  'addretinadiag___6',  'addretinadiag___88',  'addretinadiag___99',  'eprenlmemeye',  'hyprtnsvretineye',  'hollnhrsplaqeye',  'vasclroccleye',  'chrodlnevseye',  'chrodlnevsrod',  'chrodlnevslos',  'melanomaeye',  'retinatx',  'retinatxeye',  'nerveabnrm',  'nervereslts___1',  'nervereslts___2',  'nervereslts___3',  'nervereslts___4',  'nervereslts___88',  'optcswelleye',  'optcpalloreye',  'optcdrusneye',  'optcapdeye',  'nerveabnrmtx',  'nerveabnrmtxeye',  'fuophthalmgst',  'fucomopthal',  'fucomopthalhr',  'recmndcom', 'spcserviceyn',  'spcservice___1',  'spcservice___2',  'spcservice___3',  'spcservice___4',  'spcservice___5',  'spcservice___6',  'spcservice___7',  'spcservice___8',  'spcservice___88',  'spcservicetx',  'extnlpstptm']
 
 ## FORMATTING FUNCTIONS
 def get_ODOSChecklistResults(file, count):
@@ -61,7 +60,7 @@ def get_ODOSChecklistResults(file, count):
   return temp_list
 
 def format_time(timeToParse):
-  for format in ('%I:%M %p', '%I:$M%p', '%H:%M', '%h:%M'):
+  for format in ('%I:%M %p', '%I:%M%p', '%H:%M', '%h:%M'):
     try:
       time = datetime.strptime(timeToParse, format)
     except ValueError:
@@ -114,7 +113,7 @@ def formatCTDRatio(ctdr):
   try:
     formatted_ctdr = "{:.2f}".format(float(ctdr))
   except ValueError:
-    return "MANUAL: ERROR IN CTD RATIO"
+    return ("MANUAL: "+str(ctdr))
   return formatted_ctdr
 
 def format_refctverror(error):
@@ -475,6 +474,8 @@ def format_fundusAbnormalities(fundAbn):
         values[4] = '2'
       elif 'Grade OD Severe NPDR' in fundAbn:
         values[4] = '3'
+      elif 'Grade OD Proliferative diabetic retinopathy' in fundAbn:
+        values[4] = '4'
       else:
         values[4] = 'MANUAL: ERROR: ' + fundAbn
 
@@ -499,6 +500,9 @@ def format_fundusAbnormalities(fundAbn):
       elif 'Grade OS Severe NPDR' in fundAbn:
         values[0] = '1'
         values[6] = '3'
+      elif 'Grade OS Proliferative diabetic retinopathy' in fundAbn:
+        values[0] = '1'
+        values[6] = '4'
       else:
         values[6] = 'MANUAL: ERROR: ' + fundAbn
 
@@ -514,7 +518,7 @@ def format_fundusAbnormalities(fundAbn):
       if ('Diabetic retinopathy; Grade OD No diabetic retinopathy; '+
       'Diabetic macular edema OD no; Grade OS No diabetic retinopathy; '+
       'Diabetic macular edema OS no') in fundAbn: #SPECIAL CASE: this is how the docs note that pt has diabetes but no diabetic retinopathy
-      # In this case the pt DOES NOT ACTUALLY have diabetic retinopathy
+      # In this case the pt DOES NOT ACTUALLY HAVE diabetic retinopathy
         values[0] = '0' #fundusabnrm
         values[1] = '' #fundusreslts__1
         values[5] = ''
@@ -748,7 +752,7 @@ def formatParticipantColumn(column):
     formattedColumn.append('')
   else:
     formattedColumn.append('0')
-    formattedColumn.append('MANUAL: fundus photos taken = \'' + str(column[9]) + '\' and funuds photos missing = \'' + str(column[10]) + '\'')
+    formattedColumn.append('MANUAL: photos taken = \'' + str(column[9]) + '\' and photos missing = \'' + str(column[10]) + '\'')
 
   if (column[11] == "yes" or column[11] == "Yes"): #rodfunduspqlty, rodfunduspqltytx, losfunduspqlty, and losfunduspqltytx
     formattedColumn.append('1')
@@ -768,8 +772,8 @@ def formatParticipantColumn(column):
     formattedColumn.append('1') #octp
     formattedColumn.append('') #octpmiss
   else:
-    formattedColumn.append('MANUAL: fundus photos taken = \'' + str(column[14]) + '\' and funuds photos missing = \'' + str(column[15]) + '\'') #octp
-    formattedColumn.append('MANUAL: fundus photos taken = \'' + str(column[14]) + '\' and funuds photos missing = \'' + str(column[15]) + '\'') #octpmiss
+    formattedColumn.append('MANUAL: photos taken = \'' + str(column[14]) + '\' and photos missing = \'' + str(column[15]) + '\'') #octp
+    formattedColumn.append('MANUAL: photos taken = \'' + str(column[14]) + '\' and photos missing = \'' + str(column[15]) + '\'') #octpmiss
 
   if (column[16] == "yes" or column[16] == "Yes"): #rodoctpqlty, rodoctpqltytx, losoctpqlty, and losoctpqltytx
     formattedColumn.append('1')

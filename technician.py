@@ -1,6 +1,6 @@
-#!pip3 install pandas
-#!pip3 install datetime
-#!pip3 install openpyxl
+#!pip install pandas
+#!pip install datetime
+#!pip install openpyxl
 
 import pandas as pd
 import numpy as np
@@ -113,7 +113,10 @@ while (filec < len(file_name_list)):
     left = variable_list[46].split(',')
     first_left = left[0]
     second_left = left[1]
-    third_left = left[2]
+    try:
+      third_left = left[2]
+    except IndexError:
+      third_left = "MANUAL: IndexError"
   else:
     first_left = "MANUAL: see original file"
     second_left = "MANUAL: see original file"
@@ -237,7 +240,7 @@ def format_pvasdisrod(entry):
     return 12
   elif str(entry).startswith("< 20/400") or str(entry).startswith("<20/400"):
     return 13
-  elif entry == "CF":
+  elif entry == "CF" or entry=="CF @ 3'":
     return 14
   elif entry == "HM":
     return 15
@@ -299,7 +302,7 @@ def format_arodsphere(entry):
     return 'MANUAL: '+str(entry)
 
 def format_frstipmrod(entry):
-  if entry.isnumeric():
+  if str(entry).isnumeric():
     return entry
   else:
     return 'MANUAL: '+str(entry)
