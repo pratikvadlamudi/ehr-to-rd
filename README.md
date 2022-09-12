@@ -102,7 +102,7 @@ Just copy the whole note, including the physician's name at the top, and the sec
 
 *For person who produces output file:*
 
-Manually enter the following columns for each participant:
+For all participants, manually create the following columns:
 
 * Produce a column named `redcap_event_name`
   * The value is `screening_arm_1` for first-time visits or `m12m24_arm_1` for follow-up visits
@@ -112,8 +112,7 @@ Manually enter the following columns for each participant:
 
 For any participants who have \"Index Errors\" at the bottom of this code file:
 
-* Go to their text files and edit them
-* The issue is that some lines are missing. Typically, this is because the OCT photos were missing, so the provider removed the relevant lines. Add these lines back after the question `Were OCT images of sufficient quality for interpretation?`:
+* Go to their text files and edit them. The issue is often that some lines are missing. Typically, this is because the OCT photos were missing, so the provider removed the relevant lines. Add these lines back after the question `Were OCT images of sufficient quality for interpretation?`:
  * 
     `OCT Results`
     `OD: overall thickness`
@@ -123,7 +122,7 @@ For any participants who have \"Index Errors\" at the bottom of this code file:
     `OS checklist`
     `·`
 
-Visually check the following columns for 'MANUAL': 
+For all participants, visually check the following columns for `MANUAL`: 
 
 * `extnlpdat`
   * Here, you have to remove "T00:00:00" from every entry. Use the Excel SUBSTITUTE function
@@ -137,10 +136,10 @@ Visually check the following columns for 'MANUAL':
 * `fundusreslts__88`; `addretinadiag__1` thru `retinatxeye`
 * `spcserviceyn` thru `spcservicetx`
 * `extnlpstptm`
-* `ctdrod` and `ctdlos` for **blank cells** (not 'MANUAL')
+* **`ctdrrod` and `ctdrlos`**. This is bolded because **if there is text here, it will often be a glaucoma sign** (e.g. notching), so you also have to go to the `glaucsignrod` and `glaucsignlos` variables and make sure that **comments in `ctdrrod` and `ctdrlos` are added to `glaucsignrod` and `glaucsignlos` respectively**.
 
 * *Apply this logic in Excel to edit fields of csv after exporting:*
-* If `fundusreslts == “”`, `amd == “” OR “0”`, `addretinadiag == “99”`, and `nerveabnrm == “” OR “0”`, then `fundusabnrm = “0”` (see YP0680) – you can use the following Excel logic in a column to the right of `fundusabnrm`, granted that you've added the `redcap_event_name` and `screening_results_complete` columns: `=IF(AND(NUMBERVALUE(ER10)=0,NUMBERVALUE(ES10)=0,NUMBERVALUE(ET10)=0,NUMBERVALUE(EY10)=0,NUMBERVALUE(FB10)=0,NUMBERVALUE(FC10)=0,NUMBERVALUE(FD10)=0,NUMBERVALUE(FE10)=0,NUMBERVALUE(FF10)=0,NUMBERVALUE(FG10)=0,NUMBERVALUE(FH10)=0,NUMBERVALUE(FI10)=1,NUMBERVALUE(FT10)=0),0,"")`
+* If `fundusreslts == “”`, `amd == “” OR “0”`, `addretinadiag == “99”`, and `nerveabnrm == “” OR “0”`, then `fundusabnrm = “0”` (see YP0680) – you can use the following Excel logic in a column to the right of `fundusabnrm`, granted that you've added the `redcap_event_name` and `screening_results_complete` columns: `=IF(AND(NUMBERVALUE(ER10)=0,NUMBERVALUE(ES10)=0,NUMBERVALUE(ET10)=0,NUMBERVALUE(EY10)=0,NUMBERVALUE(FB10)=0,NUMBERVALUE(FC10)=0,NUMBERVALUE(FD10)=0,NUMBERVALUE(FE10)=0,NUMBERVALUE(FF10)=0,NUMBERVALUE(FG10)=0,NUMBERVALUE(FH10)=0,NUMBERVALUE(FI10)=1,NUMBERVALUE(FT10)=0),0,"")`. *(Make sure you verify these Excel column letters)*
 * If there is a diagnosis in `addretinadiag`, then `fundusreslts__88 = “1”`
 * If `refractyperod__2 == 1` OR `refractyperod__3 == 1` OR `refractyperod__6 == 1`, then `refractfurod__1`,`__2`,`__3`,... should have values. Else, `refractfurod__* == “”`. Same for `refractfulos__*`
 * If `thrdipmrod` and `thrdipmlos` are present, then `thrdipmreq = “1”`"

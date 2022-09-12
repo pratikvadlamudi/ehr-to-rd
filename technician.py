@@ -17,7 +17,7 @@ def removesuffix(input: str, suffix: str) -> str:
 ## DEFINITIONS
 
 path = './files/' #need to set
-newlines = True #NEED TO MAKE SURE THIS IS CORRECT
+newlines = False #NEED TO MAKE SURE THIS IS CORRECT
 
 os.chdir(path)
 files = glob.glob("*.txt")
