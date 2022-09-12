@@ -80,7 +80,7 @@ Visually check the following columns:
 * `thrdipmreq`. If there is a number in `thrdipmrod` and `thrdipmlos`, then `thrdipmreq` should be `1`. Else, it should be `0`
 * `trialframe`. If there is a `0` here, go to the original text file, figure out why the patient did not receive trial frames, and then put that in `trialframetx`\n"
 
-*!!Apply the following logic in Excel to the columns `arodcylin`, `arloscylin`, `mrrodcylin`, `mrloscylin`, etc.:*
+* *Apply the following logic in Excel to the columns `arodcylin`, `arloscylin`, `mrrodcylin`, `mrloscylin`, etc.:*
 * If sphere has a value, then any missing values in cylinder/axis/add must be changed to 0.
   * If the axis is missing, but the cylinder is zero, then we can fill in the axis as zero
   * If any of the sphere/cylinder/axis values are non-missing, but the ADD variable is missing, then the missing for ADD can be replaced with a zero.
@@ -139,7 +139,7 @@ Visually check the following columns for 'MANUAL':
 * `extnlpstptm`
 * `ctdrod` and `ctdlos` for **blank cells** (not 'MANUAL')
 
-*!!Apply this logic in Excel to edit fields of csv after exporting:*
+* *Apply this logic in Excel to edit fields of csv after exporting:*
 * If `fundusreslts == “”`, `amd == “” OR “0”`, `addretinadiag == “99”`, and `nerveabnrm == “” OR “0”`, then `fundusabnrm = “0”` (see YP0680) – you can use the following Excel logic in a column to the right of `fundusabnrm`, granted that you've added the `redcap_event_name` and `screening_results_complete` columns: `=IF(AND(NUMBERVALUE(ER10)=0,NUMBERVALUE(ES10)=0,NUMBERVALUE(ET10)=0,NUMBERVALUE(EY10)=0,NUMBERVALUE(FB10)=0,NUMBERVALUE(FC10)=0,NUMBERVALUE(FD10)=0,NUMBERVALUE(FE10)=0,NUMBERVALUE(FF10)=0,NUMBERVALUE(FG10)=0,NUMBERVALUE(FH10)=0,NUMBERVALUE(FI10)=1,NUMBERVALUE(FT10)=0),0,"")`
 * If there is a diagnosis in `addretinadiag`, then `fundusreslts__88 = “1”`
 * If `refractyperod__2 == 1` OR `refractyperod__3 == 1` OR `refractyperod__6 == 1`, then `refractfurod__1`,`__2`,`__3`,... should have values. Else, `refractfurod__* == “”`. Same for `refractfulos__*`
